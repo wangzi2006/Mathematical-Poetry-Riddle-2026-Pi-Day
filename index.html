@@ -1,0 +1,1590 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数学诗谜</title>
+<style>
+:root{--bg0:#f5eddc;--bg1:#e8dbc0;--ink:#1d1a16;--muted:#6c6357;--accent:#9c5a2e;--accent2:#284b63;--card:#fffaf1cc;--line:rgba(58,38,18,.14);--shadow:0 28px 60px rgba(53,36,16,.14)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif;background:radial-gradient(circle at top left, rgba(156,90,46,.2), transparent 28%),radial-gradient(circle at 80% 10%, rgba(40,75,99,.18), transparent 24%),linear-gradient(135deg, #f7eedf 0%, #efe3cd 55%, #f9f2e7 100%)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.25) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px);background-size:48px 48px,48px 48px;mask-image:radial-gradient(circle at center, rgba(0,0,0,.55), transparent 80%)}
+.app{max-width:1200px;margin:0 auto;padding:28px 20px 40px;position:relative;z-index:1}
+.hero{display:grid;gap:18px;grid-template-columns:1.5fr .9fr;align-items:end;margin-bottom:18px}
+.brand{padding:28px 30px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(255,251,244,.92), rgba(255,248,237,.78));box-shadow:var(--shadow);border-radius:28px;backdrop-filter:blur(10px)}
+.kicker{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent2)}
+h1{margin:10px 0 10px;font-family:"Noto Serif SC","Songti SC","SimSun",serif;font-size:clamp(34px,5vw,58px);line-height:1.03}
+.lead{margin:0 0 18px;color:var(--ink);font-size:17px;line-height:1.75;font-weight:600}
+.brand-note{margin:0 0 18px;color:var(--muted);font-size:14px;line-height:1.9}
+.level-guide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.level-item{padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.66);border:1px solid rgba(58,38,18,.1)}
+.level-item strong{display:block;margin-bottom:6px;font-size:14px;color:var(--accent)}
+.level-item span{display:block;color:var(--muted);font-size:13px;line-height:1.7}
+.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(156,90,46,.1);color:var(--accent);font-size:13px;border:1px solid rgba(156,90,46,.2)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{position:relative;overflow:visible;padding:18px;border-radius:22px;border:1px solid var(--line);background:rgba(255,250,242,.82);box-shadow:var(--shadow)}
+.stat .label{font-size:12px;color:var(--muted);letter-spacing:.08em}
+.stat .value{font-size:28px;font-weight:700;margin-top:8px}
+.category-selector{display:grid;gap:10px;margin-top:10px}
+.category-chip-list{display:flex;flex-wrap:wrap;gap:8px}
+.category-chip{padding:8px 12px;border-radius:999px;border:1px solid rgba(58,38,18,.14);background:rgba(255,255,255,.72);color:var(--muted);font-size:13px;font-weight:600;line-height:1;box-shadow:none}
+.category-chip:hover{border-color:rgba(156,90,46,.28);background:rgba(255,255,255,.9)}
+.category-chip.active{background:linear-gradient(135deg, rgba(156,90,46,.14), rgba(182,117,66,.2));border-color:rgba(156,90,46,.34);color:var(--accent);box-shadow:0 10px 24px rgba(156,90,46,.12)}
+.category-selector-meta{font-size:13px;line-height:1.6;color:var(--muted)}
+.select-group{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.main{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.85fr);gap:18px;align-items:start}
+.panel{border:1px solid var(--line);border-radius:26px;background:var(--card);box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.play{padding:22px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:18px}
+.toolbar-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+select,input[type="text"]{appearance:none;border:1px solid rgba(58,38,18,.16);background:rgba(255,255,255,.85);color:var(--ink);border-radius:14px;padding:12px 14px;font-size:15px;outline:none;transition:.2s border-color,.2s box-shadow,.2s transform}
+select:focus,input[type="text"]:focus{border-color:rgba(156,90,46,.55);box-shadow:0 0 0 4px rgba(156,90,46,.12)}
+button{border:0;cursor:pointer;border-radius:14px;padding:12px 16px;font-size:14px;font-weight:600;transition:.18s transform,.18s opacity,.18s box-shadow,.18s background;font-family:inherit}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg, var(--accent), #b67542);color:#fff;box-shadow:0 14px 30px rgba(156,90,46,.24)}
+.btn-secondary{background:rgba(40,75,99,.1);color:var(--accent2);border:1px solid rgba(40,75,99,.16)}
+.btn-ghost{background:rgba(255,255,255,.55);color:var(--ink);border:1px solid rgba(58,38,18,.14)}
+.question-shell{padding:20px;border-radius:22px;background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(250,244,232,.86));border:1px solid rgba(58,38,18,.10)}
+.question-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.tag{padding:6px 10px;border-radius:999px;background:rgba(40,75,99,.08);color:var(--accent2);font-size:12px;border:1px solid rgba(40,75,99,.12)}
+.tag.warm{background:rgba(156,90,46,.1);color:var(--accent);border-color:rgba(156,90,46,.14)}
+.poem{white-space:pre-wrap;font-family:"Noto Serif SC","Songti SC","SimSun",serif;font-size:24px;line-height:1.8;letter-spacing:.02em;min-height:7.2em;margin:0;padding:4px 0;text-align:center}
+.answer-area{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:18px}
+.hint-box{margin-top:16px;border-radius:18px;border:1px dashed rgba(156,90,46,.26);background:rgba(255,255,255,.62);padding:14px 14px 10px}
+.hint-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;color:var(--muted);font-size:13px}
+.hint-list{display:grid;gap:8px}
+.hint-item{padding:10px 12px;border-radius:14px;background:rgba(156,90,46,.07);color:var(--ink);border:1px solid rgba(156,90,46,.12);line-height:1.55}
+.feedback{min-height:28px;margin-top:14px;font-size:15px;line-height:1.6}
+.feedback.good{color:#14613d}
+.feedback.bad{color:#7c2f1c}
+.side{padding:18px}
+.side h2{margin:2px 0 10px;font-size:18px;font-family:"Noto Serif SC","Songti SC","SimSun",serif}
+.side p{margin:0 0 14px;color:var(--muted);line-height:1.7;font-size:14px}
+.list{display:grid;gap:10px;margin-top:14px}
+.card-mini{padding:12px 13px;border-radius:16px;background:rgba(255,255,255,.82);border:1px solid rgba(58,38,18,.10)}
+.card-mini strong{display:block;margin-bottom:4px}
+.card-mini span{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(21,15,8,.5);backdrop-filter:blur(8px);z-index:20}
+.modal.open{display:flex}
+.modal-panel{width:min(1100px, 100%);max-height:min(88vh, 1000px);overflow:hidden;border-radius:26px;background:#fffaf1;border:1px solid rgba(58,38,18,.14);box-shadow:0 30px 80px rgba(0,0,0,.24)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid rgba(58,38,18,.1)}
+.modal-body{padding:18px 20px 22px;overflow:auto;max-height:calc(88vh - 80px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:12px}
+.question-card{padding:14px;border-radius:18px;background:#fff;border:1px solid rgba(58,38,18,.1)}
+.question-card .id{font-size:12px;color:var(--muted)}
+.question-card .body{white-space:pre-wrap;margin:8px 0 10px;font-family:"Noto Serif SC","Songti SC","SimSun",serif;line-height:1.65;font-size:17px}
+.question-card .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.question-card .answer{font-size:13px;color:var(--accent2);line-height:1.55}
+.question-card .hints{font-size:13px;color:var(--muted);line-height:1.5;margin-top:8px}
+.hidden{display:none !important}
+.fade-in{animation:fade .25s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width: 960px){.hero,.main,.level-guide{grid-template-columns:1fr}.poem{font-size:22px}}
+@media (max-width: 640px){.app{padding:16px 12px 24px}.brand,.play,.side{padding:18px 16px}.lead{font-size:16px;line-height:1.7}.brand-note{font-size:13px;line-height:1.8}.level-item{padding:11px 12px}.poem{font-size:20px}.answer-area{grid-template-columns:1fr}.modal-body{padding:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="hero">
+    <div class="brand panel">
+      <h1>数学诗谜</h1>
+      <p class="lead">根据诗歌谜题，猜测其描述的数学知识。</p>
+      <p class="brand-note">题库按谜底所对应的数学内容所处学习阶段划分，共 5 类，便于按知识背景选择题目。</p>
+      <div class="level-guide" aria-label="题库介绍">
+        <div class="level-item">
+          <strong>1级（基础）</strong>
+          <span>高中及以前的数学</span>
+        </div>
+        <div class="level-item">
+          <strong>2级（通识）</strong>
+          <span>数学公共课，如高数B、线代B</span>
+        </div>
+        <div class="level-item">
+          <strong>3级（专业低年级）</strong>
+          <span>数学专业大一课程，如数学分析、高等代数</span>
+        </div>
+        <div class="level-item">
+          <strong>4级（专业高年级）</strong>
+          <span>数学专业后续课程，如抽象代数、复变函数</span>
+        </div>
+        <div class="level-item">
+          <strong>A级（科普）</strong>
+          <span>科普中的常见数学对象，如哥德巴赫猜想</span>
+        </div>
+      </div>
+    </div>
+    <div class="stats panel">
+      <div class="stat"><div class="label">题目总数</div><div class="value" id="total-count">0</div></div>
+      <div class="stat"><div class="label">已答对</div><div class="value" id="solved-count">0</div></div>
+      <div class="stat">
+        <div class="label">题库选择</div>
+        <div class="category-selector">
+          <div class="category-chip-list" id="category-chip-list" role="group" aria-label="题库选择"></div>
+          <div class="category-selector-meta" id="category-selection-meta">已选 5 个题库，共 0 题</div>
+        </div>
+      </div>
+      <div class="stat"><div class="label">提示进度</div><div class="value" id="hint-count">0 / 0</div></div>
+    </div>
+  </section>
+  <section class="main">
+    <div class="panel play">
+      <div class="toolbar">
+        <div class="toolbar-actions">
+          <button class="btn-primary" id="new-question-btn">抽取新题</button>
+          <button class="btn-ghost" id="all-questions-btn">查看全部题目</button>
+        </div>
+        <button class="btn-secondary" id="restart-btn">重开当前题</button>
+      </div>
+      <div class="question-shell" id="question-shell">
+        <div class="question-meta">
+          <span class="tag" id="question-id">#01</span>
+        </div>
+        <p class="poem" id="question-text">点击“抽取新题”开始。</p>
+        <div class="answer-area">
+          <input id="answer-input" type="text" placeholder="输入你的答案" autocomplete="off" />
+          <button class="btn-primary" id="submit-btn">提交答案</button>
+        </div>
+        <div class="hint-box">
+          <div class="hint-title">
+            <span>提示会逐条展开</span>
+            <button class="btn-ghost" id="hint-btn">显示下一条提示</button>
+          </div>
+          <div class="hint-list" id="hint-list"></div>
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div class="pill-row">
+          <button class="btn-ghost" id="reveal-btn">显示正确答案</button>
+          <button class="btn-ghost" id="next-btn">下一题</button>
+        </div>
+      </div>
+    </div>
+    <aside class="panel side">
+      <h2>玩家说明</h2>
+      <p>先选一个或多个题库，再点击“抽取新题”。答错后可以继续猜，提示会一条一条展开。</p>
+      <div class="list">
+        <div class="card-mini">
+          <strong>近似判定</strong>
+          <span>系统会尽量接受常见别名，但可能有未考虑到的表述。假如答案错误，可尝试换种说法：人名支持英文，其他尽量使用中文。</pspan>
+        </div>
+        <div class="card-mini">
+          <strong>全题库浏览</strong>
+          <span>可以直接查看所有题目、答案和提示。</span>
+        </div>
+      </div>
+    </aside>
+  </section>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-panel">
+    <div class="modal-head">
+      <div>
+        <div class="kicker">题库总览</div>
+        <h2 style="margin:6px 0 0;font-family:'Noto Serif SC','Songti SC','SimSun',serif;">全部题目</h2>
+      </div>
+      <div class="select-group">
+        <select id="modal-category"></select>
+        <input id="search-input" type="text" placeholder="搜索题面或答案" />
+        <button class="btn-ghost" id="close-modal-btn">关闭</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="grid" id="question-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script id="questions-data" type="application/json">[
+  {
+    "id": "01",
+    "question": "凹凸随形任卷舒，\n浑沦一统入玄虚。\n千般曲面终归数，\n曲率积藏洞与书。",
+    "difficulty": "高",
+    "hints": [
+      "“洞”指“亏格”"
+    ],
+    "answer": "高斯-博内定理 (Gauss-Bonnet Theorem)",
+    "category": "4"
+  },
+  {
+    "id": "02",
+    "question": "闭合圆盘掌上悬，\n身在重闱转未还。\n纵教搅乱须眉貌，\n此处孤星定如前。",
+    "difficulty": "高",
+    "hints": [
+      "“孤星定如前”指不动点"
+    ],
+    "answer": "Brouwer不动点定理",
+    "category": "4"
+  },
+  {
+    "id": "03",
+    "question": "闭径涵虚域自纯，\n复形流转见天真。\n不藏孤异峥嵘影，\n回环归零迹入尘。",
+    "difficulty": "高",
+    "hints": [
+      "“纯”指全纯"
+    ],
+    "answer": "柯西积分公式",
+    "category": "4"
+  },
+  {
+    "id": "04",
+    "question": "边长角影对头瞧，\n比例均同路不遥。\n不论高矮胖瘦状，\n外圆同径一般高。",
+    "difficulty": "0基础",
+    "hints": [
+      "初中几何"
+    ],
+    "answer": "正弦定理",
+    "category": "1"
+  },
+  {
+    "id": "05",
+    "question": "裁量妙处归同律，\n长契周全短契长。\n莫道人间裁巧艺，\n五棱星里暗藏香。",
+    "difficulty": "0基础",
+    "hints": [
+      "“长契周全短契长”"
+    ],
+    "answer": "黄金分割",
+    "category": "1"
+  },
+  {
+    "id": "06",
+    "question": "裁形不借尺刀功，\n缩胀揉搓态尽通。\n孔洞如星恒守数，\n双连映射证衣同。",
+    "difficulty": "高",
+    "hints": [
+      "1. 谜底是数学概念（定义）",
+      "2. “连”指“连续”"
+    ],
+    "answer": "同胚",
+    "category": "4"
+  },
+  {
+    "id": "07",
+    "question": "乘除万象守原身，\n质合丛中不染尘。\n万数零方齐向此，\n翻身依旧此孤身。",
+    "difficulty": "0基础",
+    "hints": [
+      "谜底是一个数"
+    ],
+    "answer": "一",
+    "category": "1"
+  },
+  {
+    "id": "08",
+    "question": "初时一对穴中谋，\n月落春深子嗣稠。\n累世相加成大道，\n葵花向日写风流。",
+    "difficulty": "科普",
+    "hints": [
+      "前两句指兔子",
+      "“累世相加”"
+    ],
+    "answer": "斐波那契数列",
+    "category": "A"
+  },
+  {
+    "id": "09",
+    "question": "有界封疆闭域中，\n连绵函影自相通。\n千回起伏终须至，\n极顶渊深在此封。",
+    "difficulty": "低",
+    "hints": [
+      "“极顶渊深”指最值"
+    ],
+    "answer": "闭区间上的连续函数有最大最小值",
+    "category": "3"
+  },
+  {
+    "id": "10",
+    "question": "点点双分各有疆，\n开邻两立不相妨。\n虽居咫尺能相避，\n此境分明谓豪强。",
+    "difficulty": "高",
+    "hints": [
+      "谜底是拓扑概念（定义）",
+      "进一步：某种空间"
+    ],
+    "answer": "T2分离性 / Hausdorff Space",
+    "category": "4"
+  },
+  {
+    "id": "11",
+    "question": "独居中枢镇群雄，\n群僚合力总成空。\n一身压尽同行众，\n稳驻阵中定始终。",
+    "difficulty": "低",
+    "hints": [
+      "这题出的不好，不如直接看答案吧（）"
+    ],
+    "answer": "严格主对角占优矩阵",
+    "category": "3"
+  },
+  {
+    "id": "12",
+    "question": "独行数海不随群，\n众数基石隐秘纹。\n除却己身并一子，\n更无他客扣柴门。",
+    "difficulty": "0基础",
+    "hints": [
+      "谜底是数学对象",
+      "除是整除"
+    ],
+    "answer": "素数",
+    "category": "1"
+  },
+  {
+    "id": "13",
+    "question": "多面玲珑百变身，\n面尖棱线数家珍。\n加来减去皆归二，\n形变终持此律真。",
+    "difficulty": "科普",
+    "hints": [
+      "“面尖棱线”指 面 顶点 棱"
+    ],
+    "answer": "V+F-E=2 欧拉公式",
+    "category": "A"
+  },
+  {
+    "id": "14",
+    "question": "繁弦急管杂难分，\n一入频域见本真。\n清浊高低自分身，\n归来重奏旧时闻。",
+    "difficulty": "高",
+    "hints": [
+      "重点在前两句",
+      "工科常见"
+    ],
+    "answer": "Fourier变换",
+    "category": "4"
+  },
+  {
+    "id": "15",
+    "question": "繁杂万象难辨明，\n气化三清定太平。\n伸展螺旋皆看透，\n降维去噪显真形。",
+    "difficulty": "低",
+    "hints": [
+      "谜底与矩阵相关",
+      "是某种分解"
+    ],
+    "answer": "矩阵的SVD",
+    "category": "3"
+  },
+  {
+    "id": "16",
+    "question": "方阵斜光贯一痕，\n对角求和无二门。\n任凭基底千般换，\n此数岿然守定根。",
+    "difficulty": "低",
+    "hints": [
+      "谜底与矩阵相关"
+    ],
+    "answer": "矩阵的迹",
+    "category": "3"
+  },
+  {
+    "id": "17",
+    "question": "方阵纵横百态生，\n何当一变见清明。\n只余斜径通幽处，\n尽洗凡尘旧姓名。",
+    "difficulty": "基础",
+    "hints": [
+      "“只余斜径”"
+    ],
+    "answer": "对角化",
+    "category": "2"
+  },
+  {
+    "id": "18",
+    "question": "分飞双翼背身栖，\n两望终生绝路歧。\n伴得斜梁无限远，\n如丝渐近不相及。",
+    "difficulty": "0基础",
+    "hints": [
+      "谜底是高中的知识"
+    ],
+    "answer": "双曲线",
+    "category": "1"
+  },
+  {
+    "id": "19",
+    "question": "腹中空阔纳无边，\n内外浑然一线牵。\n欲把清尊装美酒，\n不知流处洒青天。",
+    "difficulty": "科普",
+    "hints": [
+      "谜底是科普视频常客"
+    ],
+    "answer": "克莱因瓶",
+    "category": "A"
+  },
+  {
+    "id": "20",
+    "question": "各走他乡迹不同，\n聚沙成塔势如虹。\n纷纭万态终归一，\n且看巅峰画正钟。",
+    "difficulty": "高",
+    "hints": [
+      "“正钟”形容某种曲线的形状",
+      "与概率论相关"
+    ],
+    "answer": "中心极限定理",
+    "category": "4"
+  },
+  {
+    "id": "21",
+    "question": "勾股平铺续旧篇，\n奈何指数欲参天。\n书边留白余千古，\n证尽人间三百秋。",
+    "difficulty": "科普",
+    "hints": [
+      "谜底是某个定理或猜想",
+      "费马"
+    ],
+    "answer": "费马大定理",
+    "category": "A"
+  },
+  {
+    "id": "22",
+    "question": "合同变换影纵横，\n几度翻新势未平。\n莫道乾坤随变改，\n正邪多寡定其名。",
+    "difficulty": "低",
+    "hints": [
+      "“正邪”指正负",
+      "“定其名”指不变量"
+    ],
+    "answer": "惯性指数",
+    "category": "3"
+  },
+  {
+    "id": "23",
+    "question": "横分厚薄按层收，\n不问域形断与稠。\n莫嫌碎影无由聚，\n测度方知万物留。",
+    "difficulty": "高",
+    "hints": [
+      "“碎影无由聚”指的是积分"
+    ],
+    "answer": "Lebesgue 积分",
+    "category": "4"
+  },
+  {
+    "id": "24",
+    "question": "宏图欲筑通天塔，\n一句真言锁隙纱。\n非是慧眼难分辨，\n只缘身在此山家。",
+    "difficulty": "科普",
+    "hints": [
+      "科普对象"
+    ],
+    "answer": "哥德尔不完备定理",
+    "category": "A"
+  },
+  {
+    "id": "25",
+    "question": "基影参差各抱斜，\n巧将层累正枝桠。\n修成玉立皆相正，\n归向规中尺度华。",
+    "difficulty": "基础",
+    "hints": [
+      "“基”",
+      "与线性空间有关"
+    ],
+    "answer": "Schmidt 正交化",
+    "category": "2"
+  },
+  {
+    "id": "26",
+    "question": "经纬织绸暗隐功，\n法曲难凭造化量。\n绝奇独在深肌理，\n外弯何曾改内藏？",
+    "difficulty": "高",
+    "hints": [
+      "几何方面的定理",
+      "“深肌理”“内藏”暗示内蕴"
+    ],
+    "answer": "Gauss 绝妙定理",
+    "category": "4"
+  },
+  {
+    "id": "27",
+    "question": "客满华堂已到边，\n忽闻门外有喧阗。\n人人挪后安新位，\n无限胸怀纳大千。",
+    "difficulty": "科普",
+    "hints": [
+      "谜底是科普故事"
+    ],
+    "answer": "希尔伯特的旅馆",
+    "category": "A"
+  },
+  {
+    "id": "28",
+    "question": "空无一物自鸿蒙，\n加减相随形影同。\n忽入乘除翻天地，\n吞尽千数归寂中。",
+    "difficulty": "0基础",
+    "hints": [
+      "谜底是一个数"
+    ],
+    "answer": "零",
+    "category": "1"
+  },
+  {
+    "id": "29",
+    "question": "离合纷纭影不同，\n寻根未必总相逢。\n四方有钥能开路，\n五岳无门叹道空。",
+    "difficulty": "科普",
+    "hints": [
+      "“四”“五”",
+      "谜底是数学定理/理论"
+    ],
+    "answer": "伽罗瓦理论/五次及以上方程无求根公式",
+    "category": "A"
+  },
+  {
+    "id": "30",
+    "question": "连绵山脊贯西东，\n两麓高低势不同。\n云横半岭遮还见，\n总有仙踪在此中。",
+    "difficulty": "低",
+    "hints": [
+      "“山脊”指函数"
+    ],
+    "answer": "连续函数的介值原理",
+    "category": "3"
+  },
+  {
+    "id": "31",
+    "question": "两岸高山束狂流，\n奔海同归意未休。\n一叶孤舟随波去，\n不问西东也是休。",
+    "difficulty": "基础",
+    "hints": [
+      "高等数学 / 数学分析中的定理",
+      "“两岸高山”指数列"
+    ],
+    "answer": "夹逼定理",
+    "category": "2"
+  },
+  {
+    "id": "32",
+    "question": "两端高处架长虹，\n曲岸蜿蜒势不同。\n必有一波随浪转，\n此时正向与君同。",
+    "difficulty": "基础",
+    "hints": [
+      "高等数学 / 数学分析中的定理",
+      "“长虹”“曲岸”都指函数"
+    ],
+    "answer": "拉格朗日中值定理",
+    "category": "2"
+  },
+  {
+    "id": "33",
+    "question": "列阵森严本自收，\n任凭调度序重谋。\n虽移前后千般位，\n总和如一定九州。",
+    "difficulty": "高",
+    "hints": [
+      "“虽移前后”“总和如一”",
+      "“列阵”“指数列"
+    ],
+    "answer": "Riemann 重排定理",
+    "category": "4"
+  },
+  {
+    "id": "34",
+    "question": "乱序逐项渐收身，\n上有强梁压众臣。\n极限积分终可易，\n黎曼愁处此通津。",
+    "difficulty": "高",
+    "hints": [
+      "“极限积分终可易”",
+      "实变函数"
+    ],
+    "answer": "控制收敛定理",
+    "category": "4"
+  },
+  {
+    "id": "35",
+    "question": "迷雾深山寻谷底，\n只凭脚下测高低。\n贪看不平多险处，\n一步一趋向幽溪。",
+    "difficulty": "高",
+    "hints": [
+      "谜底是某种算法"
+    ],
+    "answer": "梯度下降",
+    "category": "4"
+  },
+  {
+    "id": "36",
+    "question": "莫问根踪何处栽，\n只凭系数见灵台。\n和与求积皆可递，\n对称诸象掌中开。",
+    "difficulty": "0基础",
+    "hints": [
+      "“和与求积”",
+      "谜底是高中知识"
+    ],
+    "answer": "韦达定理",
+    "category": "1"
+  },
+  {
+    "id": "37",
+    "question": "排排骨牌次第连，\n只推首个到身前。\n若教此后皆相续，\n万案终归一线牵。",
+    "difficulty": "0基础",
+    "hints": [
+      "谜底是证明方法"
+    ],
+    "answer": "数学归纳法",
+    "category": "1"
+  },
+  {
+    "id": "38",
+    "question": "偏安小径理方申，\n扩土开疆迹自亲。\n莫道威仪超旧制，\n终教全域识真身。",
+    "difficulty": "高",
+    "hints": [
+      "谜底是定理",
+      "在泛函分析中"
+    ],
+    "answer": "hahn-banach定理",
+    "category": "4"
+  },
+  {
+    "id": "39",
+    "question": "平方两两自相加，\n无奈斜倾起隙瑕。\n减却双乘余味处，\n方知对岸属谁家。",
+    "difficulty": "0基础",
+    "hints": [
+      "三角形中的定理"
+    ],
+    "answer": "余弦定理",
+    "category": "1"
+  },
+  {
+    "id": "40",
+    "question": "屏开对称阵图深，\n契阔合同万象迁。\n正负盈虚皆定数，\n惯随本色守常真。",
+    "difficulty": "基础",
+    "hints": [
+      "“阵图”指矩阵",
+      "“对称”"
+    ],
+    "answer": "惯性定理",
+    "category": "2"
+  },
+  {
+    "id": "41",
+    "question": "千般函数可拆分，\n各阶导数定元神。\n多项式里藏真貌，\n一点展开万象春。",
+    "difficulty": "基础",
+    "hints": [
+      "数学公式"
+    ],
+    "answer": "泰勒公式",
+    "category": "2"
+  },
+  {
+    "id": "42",
+    "question": "前尘旧事尽随风，\n只问今朝脚下踪。\n一步一移随运数，\n茫茫何处是归鸿。",
+    "difficulty": "高",
+    "hints": [
+      "概率论中的对象",
+      "与随机过程有关"
+    ],
+    "answer": "马尔科夫链/鞅",
+    "category": "4"
+  },
+  {
+    "id": "43",
+    "question": "趋向虚无终未无，\n微尘世界入浮图。\n虽非寂灭终归零，\n极限门前性命孤。",
+    "difficulty": "低",
+    "hints": [
+      "数学对象",
+      "数学分析中的对象"
+    ],
+    "answer": "无穷小量",
+    "category": "3"
+  },
+  {
+    "id": "44",
+    "question": "全纯画境锁云疆，\n内里春秋自敛光。\n欲睹丹青最浓处，\n须寻边际染霞章。",
+    "difficulty": "高",
+    "hints": [
+      "“全纯”",
+      "“边际”"
+    ],
+    "answer": "最大模原理",
+    "category": "4"
+  },
+  {
+    "id": "45",
+    "question": "群阶玄素藏兵符，\n暗伏幂师势不孤。\n数自余一合阶数，\n共轭如影入江湖。",
+    "difficulty": "高",
+    "hints": [
+      "群论中的定理"
+    ],
+    "answer": "Sylow 定理",
+    "category": "4"
+  },
+  {
+    "id": "46",
+    "question": "任尔纤毫随处设，\n必寻高槛定归期。\n此后漫漫无穷步，\n尽入藩篱不复出。",
+    "difficulty": "基础",
+    "hints": [
+      "分析中的数学对象",
+      "非常基本"
+    ],
+    "answer": "极限的定义",
+    "category": "2"
+  },
+  {
+    "id": "47",
+    "question": "任予微隙固能求，\n必得寸绳量九州。\n但使域中双点近，\n函数值差不过秋。",
+    "difficulty": "低",
+    "hints": [
+      "数学分析中的数学对象"
+    ],
+    "answer": "一致连续",
+    "category": "3"
+  },
+  {
+    "id": "48",
+    "question": "三分去一复再三，\n无限裁残影未坍。\n点密犹连实数线，\n长空竟作零测潭。",
+    "difficulty": "高",
+    "hints": [
+      "“三分去一”",
+      "分析中的数学对象"
+    ],
+    "answer": "康托尔集",
+    "category": "4"
+  },
+  {
+    "id": "49",
+    "question": "散度微茫积作深，\n源流万派此中寻。\n何劳遍历穷幽径，\n且向封壳看通襟。",
+    "difficulty": "高",
+    "hints": [
+      "“散度”",
+      "谜底以“公式”命名"
+    ],
+    "answer": "Gauss 公式",
+    "category": "4"
+  },
+  {
+    "id": "50",
+    "question": "上穷碧落下黄泉，\n两处茫茫皆不见。\n且把微商量快慢，\n删繁去伪见真颜。",
+    "difficulty": "基础",
+    "hints": [
+      "“微商”指导数",
+      "“茫茫皆不见”形容极限过程"
+    ],
+    "answer": "洛必达定理",
+    "category": "2"
+  },
+  {
+    "id": "51",
+    "question": "十字相交天地分，\n纵横轴上线纹匀。\n坐标一对定经纬，\n万象归宗数理真。",
+    "difficulty": "0基础",
+    "hints": [
+      "高中及以前的知识"
+    ],
+    "answer": "平面直角坐标系",
+    "category": "1"
+  },
+  {
+    "id": "52",
+    "question": "矢志前行不回顾，\n遥逢界限阻征途。\n纵然终难越险阻，\n渐近云端一点驻。",
+    "difficulty": "基础",
+    "hints": [
+      "“一点驻”指收敛"
+    ],
+    "answer": "单调有界必有极限定理",
+    "category": "2"
+  },
+  {
+    "id": "53",
+    "question": "数列如梯逐级开，\n首为下底末为台。\n首尾连环合一体，\n均分天地见全该。",
+    "difficulty": "0基础",
+    "hints": [
+      "“均分”指除以二",
+      "“全该”指求和"
+    ],
+    "answer": "等差数列求和公式",
+    "category": "1"
+  },
+  {
+    "id": "54",
+    "question": "双肩等长共擎天，\n顶点垂丝落九渊。\n中线角分同此路，\n三途归一自周全。",
+    "difficulty": "0基础",
+    "hints": [
+      "三角形"
+    ],
+    "answer": "等腰三角形三线合一",
+    "category": "1"
+  },
+  {
+    "id": "55",
+    "question": "瞬息微澜汇巨流，\n寻根溯源逆行舟。\n不劳万象穷堆叠，\n高下只在两端求。",
+    "difficulty": "基础",
+    "hints": [
+      "穷堆叠指图像的穷堆叠",
+      "穷堆叠指积分"
+    ],
+    "answer": "微积分基本定理(Newton-Lebniz)",
+    "category": "2"
+  },
+  {
+    "id": "56",
+    "question": "锁界连环渐次收，\n左疆右限共趋秋。\n层城叠尽终归寂，\n一点空明定九州。",
+    "difficulty": "基础",
+    "hints": [
+      "数学分析的内容",
+      "谜底是某个实数基本定理"
+    ],
+    "answer": "闭区间套定理",
+    "category": "2"
+  },
+  {
+    "id": "57",
+    "question": "淘尽恒河数渐稀，\n双星照影两相依。\n只缘一步成永伴，\n未信天涯有尽期。",
+    "difficulty": "科普",
+    "hints": [
+      "数学猜想"
+    ],
+    "answer": "孪生素数猜想",
+    "category": "A"
+  },
+  {
+    "id": "58",
+    "question": "铁壁合围困众星，\n万象点阵影伶仃。\n无边广域终难去，\n必有一处汇英灵。",
+    "difficulty": "低",
+    "hints": [
+      "【可忽略“影伶仃”】",
+      "“铁壁、广域难去”指有界"
+    ],
+    "answer": "聚点原理（有界无穷必有聚点）",
+    "category": "3"
+  },
+  {
+    "id": "59",
+    "question": "凸垒隔天渊，\n一刀判两全。\n超平如楚汉，\n相望不相沿。",
+    "difficulty": "高",
+    "hints": [
+      "“凸”指凸集"
+    ],
+    "answer": "凸集分离定理",
+    "category": "4"
+  },
+  {
+    "id": "60",
+    "question": "万象演群宗，\n核归商径通。\n映真如对镜，\n形影共神工。",
+    "difficulty": "高",
+    "hints": [
+      "“群”",
+      "“核”“商”"
+    ],
+    "answer": "第一同构定理/同构对应定理",
+    "category": "4"
+  },
+  {
+    "id": "61",
+    "question": "无限衣衫盖未休，\n寸身终在几衾收。\n莫言广厦千间敝，\n尺缕能遮天下秋。",
+    "difficulty": "低",
+    "hints": [
+      "数学分析的内容",
+      "谜底是某个实数基本定理"
+    ],
+    "answer": "有限覆盖定理",
+    "category": "3"
+  },
+  {
+    "id": "62",
+    "question": "信手浑圆裂几分，\n重排未改旧乾坤。\n一朝聚散生双璧，\n始信神机不可闻。",
+    "difficulty": "科普",
+    "hints": [
+      "科普视频相关",
+      "佯谬，常被称为“悖论”"
+    ],
+    "answer": "巴拿赫-塔斯基定理 (分球悖论)",
+    "category": "A"
+  },
+  {
+    "id": "63",
+    "question": "形域求微本有方，\n边缘积里见真章。\n符移一线乾坤转，\n内外玄同等量藏。",
+    "difficulty": "高",
+    "hints": [
+      "“积”指积分"
+    ],
+    "answer": "（微分形式的）Stokes公式",
+    "category": "4"
+  },
+  {
+    "id": "64",
+    "question": "虚实相生本不同，\n借来半径转苍穹。\n本来三界无干系，\n汇作归零万法通。",
+    "difficulty": "科普",
+    "hints": [
+      "谜底是一个公式"
+    ],
+    "answer": "欧拉公式",
+    "category": "A"
+  },
+  {
+    "id": "65",
+    "question": "复径巡行绕洞空，\n曲涵涡转不徒穷。\n百川异漩归宗计，\n玄机尽在剩残中。",
+    "difficulty": "高",
+    "hints": [
+      "“复”指 complex，复数等",
+      "“巡行”指回路"
+    ],
+    "answer": "留数定理",
+    "category": "4"
+  },
+  {
+    "id": "66",
+    "question": "一沙一界影重重，\n破立之间貌总同。\n欲测长途无尽处，\n身居分数维之中。",
+    "difficulty": "科普",
+    "hints": [
+      "科普对象"
+    ],
+    "answer": "分形",
+    "category": "A"
+  },
+  {
+    "id": "67",
+    "question": "一水盘回锁七桥，\n行人只许过单遭。\n图穷始信无归路，\n奇偶原来定寂寥。",
+    "difficulty": "科普",
+    "hints": [
+      "谜底是科普故事"
+    ],
+    "answer": "欧拉七桥问题（一笔画）",
+    "category": "A"
+  },
+  {
+    "id": "68",
+    "question": "因为直言遭祸殃，\n分身乏术论短长。\n尾随万代无穷尽，\n却在方格对角藏。",
+    "difficulty": "科普",
+    "hints": [
+      "和一个具体的数有关"
+    ],
+    "answer": "根号2 第一次数学危机",
+    "category": "A"
+  },
+  {
+    "id": "69",
+    "question": "圆中起舞影翩跹，\n对坐弦边意自连。\n同立一端观海阔，\n高低不改旧时天。",
+    "difficulty": "0基础",
+    "hints": [
+      "初中知识",
+      "圆中的某个几何性质"
+    ],
+    "answer": "等弧对等角",
+    "category": "1"
+  },
+  {
+    "id": "70",
+    "question": "长街漫步看流光，\n瞬息微商察短长。\n无限逼临近切点，\n斜率决断升降彰。",
+    "difficulty": "基础",
+    "hints": [
+      "数学对象",
+      "数学分析中的对象"
+    ],
+    "answer": "导数",
+    "category": "2"
+  },
+  {
+    "id": "71",
+    "question": "长条剪作如意身，\n半转乾坤续旧尘。\n踏遍天涯无表里，\n始知原本一家人。",
+    "difficulty": "科普",
+    "hints": [
+      "“踏遍天涯无表里”",
+      "科普中常见数学对象"
+    ],
+    "answer": "莫比乌斯带",
+    "category": "A"
+  },
+  {
+    "id": "72",
+    "question": "指间聚拢寸心收，\n广域消磨化细流。\n纵使乾坤皆缩影，\n独留此位不随流。",
+    "difficulty": "低",
+    "hints": [
+      "“缩影”指缩小",
+      "“独留此位”指不动点"
+    ],
+    "answer": "压缩映射原理 (Banach不动点)",
+    "category": "3"
+  },
+  {
+    "id": "73",
+    "question": "指数乘虚上九天，\n周行圆影自年年。\n蓦然加一归零处，\n万数朝宗此式前。",
+    "difficulty": "科普",
+    "hints": [
+      "谜底是一个公式"
+    ],
+    "answer": "欧拉公式",
+    "category": "A"
+  },
+  {
+    "id": "74",
+    "question": "众数齐聚各不同，\n难越雷池半步踪。\n欲问云端谁作梗，\n惟有顶峰求真容。",
+    "difficulty": "低",
+    "hints": [
+      "数学分析的内容",
+      "谜底是某个实数基本定理"
+    ],
+    "answer": "确界原理",
+    "category": "3"
+  },
+  {
+    "id": "75",
+    "question": "众羽争栖入暮烟，\n疏林定数待归旋。\n若教禽迹逾宿处，\n定有一枝并影眠。",
+    "difficulty": "基础",
+    "hints": [
+      "众羽 和 禽 指代同一个对象",
+      "疏林 和 宿处 指代同一个对象"
+    ],
+    "answer": "抽屉原理",
+    "category": "2"
+  },
+  {
+    "id": "76",
+    "question": "解析四海纵复连，\n却囿模围界似坚。\n但使长拘无逾越，\n通域必定是常元。",
+    "difficulty": "高",
+    "hints": [
+      "“解析”",
+      "复变函数"
+    ],
+    "answer": "刘维尔定理",
+    "category": "4"
+  },
+  {
+    "id": "77",
+    "question": "双数回环作桨桡，\n余波复起又新潮。\n千番剥茧丝终尽，\n唯剩公约赤玉昭。",
+    "difficulty": "低",
+    "hints": [
+      "“余”指余数",
+      "“公约”是数学概念，不是约定"
+    ],
+    "answer": "辗转相除法",
+    "category": "3"
+  },
+  {
+    "id": "78",
+    "question": "区间构建覆真含，\n信度先设险阻参。\n莫道单次无定论，\n频率自古定虚涵。",
+    "difficulty": "高",
+    "hints": [
+      "数理统计的概念",
+      "“区间”“信度”"
+    ],
+    "answer": "置信区间",
+    "category": "4"
+  },
+  {
+    "id": "79",
+    "question": "万千数据几量收，\n参数消息尽数留。\n但看条件分布处，\n与参无涉自悠悠。",
+    "difficulty": "高",
+    "hints": [
+      "数理统计的概念",
+      "“与参无涉”指 与参数无关"
+    ],
+    "answer": "充分统计量",
+    "category": "4"
+  }
+]</script>
+<script>
+const QUESTIONS = JSON.parse(document.getElementById('questions-data').textContent);
+const CATEGORY_META = [
+  { code: 'all', label: '全部题库' },
+  { code: '1', label: '1级（基础）' },
+  { code: '2', label: '2级（通识）' },
+  { code: '3', label: '3级（专业低年级）' },
+  { code: '4', label: '4级（专业高年级）' },
+  { code: 'A', label: 'A级（科普）' }
+];
+const CATEGORY_OPTIONS = CATEGORY_META.filter((item) => item.code !== 'all');
+const CATEGORY_MAP = new Map(CATEGORY_META.map((item) => [item.code, item.label]));
+const CATEGORY_SHORT = { '1': '1级', '2': '2级', '3': '3级', '4': '4级', 'A': 'A级' };
+const DEFAULT_CATEGORIES = CATEGORY_OPTIONS.map((item) => item.code);
+const manualAliases = new Map([
+  ['Brouwer不动点定理', ['布劳威尔不动点定理', '布劳威尔定理']],
+  ['高斯-博内定理 (Gauss-Bonnet Theorem)', ['高斯-博内定理', '高斯博内定理', 'Gauss-Bonnet定理', 'Gauss Bonnet定理']],
+  ['Lebesgue 积分', ['勒贝格积分']],
+  ['Schmidt 正交化', ['施密特正交化']],
+  ['Fourier变换', ['傅里叶变换']],
+  ['Gauss 公式', ['高斯公式']],
+  ['Gauss 绝妙定理', ['高斯绝妙定理']],
+  ['刘维尔定理', ['Liouville定理']],
+  ['康托尔集', ['Cantor集']],
+  ['素数', ['质数']],
+  ['一', ['1']],
+  ['零', ['0']],
+  ['柯西积分公式', ['柯西积分定理']],
+  ['闭区间上的连续函数有最大最小值', ['最值原理', '最值定理', '最大值最小值原理', '最大最小值原理', '最小值最大值原理', '最小最大值原理']],
+  ['T2分离性 / Hausdorff Space', ['T2分离性', 'Hausdorff空间', '豪斯多夫空间', 'Hausdorff Space']],
+  ['V+F-E=2 欧拉公式', ['欧拉公式', 'Euler公式', 'V+F-E=2']],
+  ['矩阵的SVD', ['SVD', '奇异值分解']],
+  ['矩阵的迹', ['迹', 'trace', 'tr']],
+  ['对角化', ['矩阵的对角化']],
+  ['中心极限定理', ['CLT', 'Central Limit Theorem']],
+  ['费马大定理', ['费马最后定理']],
+  ['惯性指数', ['惯性定理']],
+  ['希尔伯特的旅馆', ['希尔伯特旅馆', 'Hilbert']],
+  ['伽罗瓦理论/五次及以上方程无求根公式', ['Galois理论']],
+  ['连续函数的介值原理', ['介值原理', '介值定理']],
+  ['夹逼定理', ['三明治定理', '两边夹定理', '夹逼准则', '夹挤定理', '迫敛定理']],
+  ['拉格朗日中值定理', ['中值定理', 'Lagrange中值定理']],
+  ['Riemann 重排定理', ['黎曼重排定理']],
+  ['控制收敛定理', ['Dominate Convergence Theorem', 'DCT']],
+  ['梯度下降', ['GD', 'SGD']],
+  ['hahn-banach定理', ['哈恩巴拿赫定理', '哈恩-巴拿赫定理']],
+  ['惯性定理', ['惯性指数']],
+  ['泰勒公式', ['Taylor公式', '泰勒展开', 'Taylor展开']],
+  ['马尔科夫链/鞅', ['Markov Chain', 'Markov Process', '马氏过程', '马尔科夫', '马尔可夫']],
+  ['无穷小量', ['o(1)']],
+  ['Sylow 定理', ['西罗定理']],
+  ['极限的定义', ['极限', '数列极限']],
+  ['平面直角坐标系', ['坐标系']],
+  ['单调有界必有极限定理', ['单调有界', '单调收敛']],
+  ['等腰三角形三线合一', ['三线合一']],
+  ['微积分基本定理(Newton-Lebniz)', ['微积分基本定理', 'Newton-Lebniz', 'Newton Lebniz', '牛顿-莱布尼兹', '牛顿莱布尼兹']],
+  ['闭区间套定理', ['区间套', '闭区间套原理']],
+  ['聚点原理（有界无穷必有聚点）', ['聚点原理', '致密性定理', 'Bolzano-Weierstrass定理', '波尔查诺-威尔斯特拉斯定理', 'Weierstrass', '威尔斯特拉斯']],
+  ['凸集分离定理', ['超平面分离定理', 'Hahn-Banach', '哈恩巴拿赫定理', '哈恩-巴拿赫定理']],
+  ['第一同构定理/同构对应定理', ['第一同构定理', '同构对应定理', '同态基本定理', '同构基本定理', '同构定理']],
+  ['有限覆盖定理', ['开覆盖定理', 'Heine-Borel定理', '海涅-博雷尔定理', 'Heine Borel定理', '海涅博雷尔定理']],
+  ['巴拿赫-塔斯基定理 (分球悖论)', ['Banach-Tarski', 'Banach Tarski', '巴拿赫-塔斯基', '巴拿赫塔斯基', '分球', '分球佯谬', '分球悖论', '分球怪论']],
+  ['（微分形式的）Stokes公式', ['Stokes', '斯托克斯', 'Stokes公式']],
+  ['欧拉公式', ['Euler公式']],
+  ['留数定理', ['留数公式', 'Residue']],
+  ['分形', ['fractal']],
+  ['欧拉七桥问题（一笔画）', ['七桥问题', 'Euler', '一笔画']],
+  ['根号2 第一次数学危机', ['根号2', '第一次数学危机', '根号二', '无理数']],
+  ['等弧对等角', ['圆周角相等', '等角对等弧', '等弦对等角']],
+  ['导数', ['微分', '求导']],
+  ['莫比乌斯带', ['莫比乌斯', 'Mobius', 'Möbius']],
+  ['压缩映射原理 (Banach不动点)', ['Banach', 'Banach不动点', '压缩映射']],
+  ['确界原理', ['确界定理', '上确界', 'Supremum', 'LUB', 'Least Upper Bound', '最小上界', 'sup']],
+  ['抽屉原理', ['鸽笼原理', 'Dirichlet', '鸽巢原理', '平均值原理']],
+  ['置信区间', ['置信', '信赖', 'Confidence']],
+  ['充分统计量', ['Sufficient statistic', 'Sufficient']]
+]);
+
+const state = {
+  categories: DEFAULT_CATEGORIES.slice(),
+  current: null,
+  pool: [],
+  hintIndex: 0,
+  revealed: false,
+  solvedCount: 0,
+  attemptCount: 0,
+  currentSolved: false,
+  lastPoolKey: '',
+};
+
+const els = {
+  totalCount: document.getElementById('total-count'),
+  solvedCount: document.getElementById('solved-count'),
+  categoryChipList: document.getElementById('category-chip-list'),
+  categorySelectionMeta: document.getElementById('category-selection-meta'),
+  hintCount: document.getElementById('hint-count'),
+  modalCategory: document.getElementById('modal-category'),
+  questionId: document.getElementById('question-id'),
+  questionText: document.getElementById('question-text'),
+  answerInput: document.getElementById('answer-input'),
+  hintList: document.getElementById('hint-list'),
+  feedback: document.getElementById('feedback'),
+  hintBtn: document.getElementById('hint-btn'),
+  revealBtn: document.getElementById('reveal-btn'),
+  nextBtn: document.getElementById('next-btn'),
+  restartBtn: document.getElementById('restart-btn'),
+  newQuestionBtn: document.getElementById('new-question-btn'),
+  submitBtn: document.getElementById('submit-btn'),
+  allQuestionsBtn: document.getElementById('all-questions-btn'),
+  modal: document.getElementById('modal'),
+  questionGrid: document.getElementById('question-grid'),
+  closeModalBtn: document.getElementById('close-modal-btn'),
+  searchInput: document.getElementById('search-input'),
+};
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+}
+
+function normalize(text) {
+  return String(text ?? '')
+    .normalize('NFKC')
+    .toLowerCase()
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[\s\u3000`~!@#$%^&*()\-_=+\[\]{};:'",.<>/?\\|，。！？；：、（）【】《》“”‘’·…—]+/g, '');
+}
+
+function stripCommonDecorations(text) {
+  return String(text ?? '')
+    .replace(/[（(][^（）()]*[)）]/g, ' ')
+    .replace(/[\[\]【】{}]/g, ' ')
+    .replace(/[\/\\|;]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function aliasVariants(text) {
+  const queue = [String(text ?? '')];
+  const seen = new Set();
+  const output = new Set();
+
+  while (queue.length) {
+    const current = queue.pop().trim();
+    if (!current || seen.has(current)) continue;
+    seen.add(current);
+
+    output.add(current);
+    output.add(stripCommonDecorations(current));
+    output.add(current.replace(/[（(][^（）()]*[)）]/g, ''));
+    output.add(current.replace(/\s+/g, ' '));
+
+    const splitters = ['\n', '/', '／', '|', '｜', ';', '；'];
+    for (const splitter of splitters) {
+      if (current.includes(splitter)) {
+        for (const part of current.split(splitter)) {
+          if (part.trim()) queue.push(part.trim());
+        }
+      }
+    }
+
+    const parenMatch = current.match(/[（(]([^（）()]+)[)）]/);
+    if (parenMatch) {
+      queue.push(parenMatch[1].trim());
+      queue.push(current.replace(/[（(][^（）()]*[)）]/g, ' ').trim());
+    }
+
+    const slashMatch = current.match(/(.+?)\s*\/\s*(.+)/);
+    if (slashMatch) {
+      queue.push(slashMatch[1].trim());
+      queue.push(slashMatch[2].trim());
+    }
+  }
+
+  const result = new Set();
+  for (const item of output) {
+    const compact = normalize(item);
+    if (compact) result.add(compact);
+  }
+
+  const manual = manualAliases.get(text);
+  if (manual) {
+    for (const item of manual) {
+      const compact = normalize(item);
+      if (compact) result.add(compact);
+    }
+  }
+
+  return [...result];
+}
+
+function levenshtein(a, b) {
+  const left = a.length;
+  const right = b.length;
+  if (!left) return right;
+  if (!right) return left;
+  const prev = new Array(right + 1);
+  const curr = new Array(right + 1);
+  for (let j = 0; j <= right; j += 1) prev[j] = j;
+  for (let i = 1; i <= left; i += 1) {
+    curr[0] = i;
+    const charA = a.charCodeAt(i - 1);
+    for (let j = 1; j <= right; j += 1) {
+      const cost = charA === b.charCodeAt(j - 1) ? 0 : 1;
+      curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
+    }
+    for (let j = 0; j <= right; j += 1) prev[j] = curr[j];
+  }
+  return prev[right];
+}
+
+function similarity(a, b) {
+  if (!a || !b) return 0;
+  const maxLen = Math.max(a.length, b.length);
+  if (!maxLen) return 1;
+  return 1 - levenshtein(a, b) / maxLen;
+}
+
+function isCloseEnough(input, answer) {
+  const candidate = normalize(input);
+  if (!candidate) return false;
+  const aliases = aliasVariants(answer);
+  if (!aliases.length) return false;
+
+  let best = 0;
+  for (const alias of aliases) {
+    if (!alias) continue;
+    if (candidate === alias) return true;
+    if (alias.includes(candidate) || candidate.includes(alias)) {
+      const shorter = Math.min(candidate.length, alias.length);
+      const longer = Math.max(candidate.length, alias.length);
+      if (shorter >= 2 && shorter / longer > 0.5) return true;
+    }
+    const score = similarity(candidate, alias);
+    if (score > best) best = score;
+  }
+
+  const threshold = candidate.length < 6 ? 0.88 : candidate.length < 10 ? 0.8 : 0.73;
+  return best >= threshold;
+}
+
+function getOrderedCategories(categories) {
+  const selected = new Set(categories && categories.length ? categories : DEFAULT_CATEGORIES);
+  return CATEGORY_OPTIONS.filter((item) => selected.has(item.code)).map((item) => item.code);
+}
+
+function getQuestionsForCategories(categories) {
+  const activeCategories = categories && categories.length ? categories : DEFAULT_CATEGORIES;
+  return QUESTIONS.filter((question) => activeCategories.includes(String(question.category)));
+}
+
+function shuffle(list) {
+  const result = list.slice();
+  for (let i = result.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+function refillPool() {
+  state.pool = shuffle(getQuestionsForCategories(state.categories));
+  state.lastPoolKey = state.categories.slice().sort().join(',');
+}
+
+function renderEmptyState() {
+  els.questionId.textContent = '#--';
+  els.questionText.textContent = '当前题库没有可用题目。';
+  els.hintList.innerHTML = '';
+  els.feedback.textContent = '';
+  els.hintCount.textContent = '0 / 0';
+  els.answerInput.value = '';
+  els.answerInput.disabled = true;
+  els.submitBtn.disabled = true;
+  els.hintBtn.disabled = true;
+  els.revealBtn.disabled = true;
+  els.nextBtn.disabled = true;
+}
+
+function renderIdleState(message = '点击“抽取新题”开始。') {
+  els.questionId.textContent = '#--';
+  els.questionText.textContent = message;
+  els.hintList.innerHTML = '<div class="hint-item">选好题库后，点击“抽取新题”开始作答。</div>';
+  els.feedback.textContent = '';
+  els.feedback.className = 'feedback';
+  els.hintCount.textContent = '0 / 0';
+  els.answerInput.value = '';
+  els.answerInput.disabled = true;
+  els.submitBtn.disabled = true;
+  els.hintBtn.disabled = true;
+  els.revealBtn.disabled = true;
+  els.nextBtn.disabled = true;
+}
+
+function renderHints() {
+  const hints = state.current?.hints || [];
+  const visibleHints = hints.slice(0, state.hintIndex);
+  els.hintCount.textContent = `${state.hintIndex} / ${hints.length}`;
+  els.hintList.innerHTML = visibleHints.length
+    ? visibleHints.map((hint, index) => `<div class="hint-item fade-in">${index + 1}. ${escapeHtml(hint)}</div>`).join('')
+    : '<div class="hint-item">暂无已显示提示。需要时点击“显示下一条提示”。</div>';
+  els.hintBtn.disabled = !state.current || state.hintIndex >= hints.length;
+  els.hintBtn.textContent = state.hintIndex >= hints.length ? '提示已用完' : '显示下一条提示';
+}
+
+function updateStats() {
+  els.totalCount.textContent = QUESTIONS.length;
+  els.solvedCount.textContent = state.solvedCount;
+  const categoryCount = getQuestionsForCategories(state.categories).length;
+  els.categorySelectionMeta.textContent = `已选${formatCategorySelection(state.categories)}，共 ${categoryCount} 题`;
+  els.categorySelectionMeta.title = `当前筛选：${getCategoryTitles(state.categories).join('、')}`;
+}
+
+function formatCategorySelection(categories) {
+  const activeCategories = categories && categories.length ? categories : DEFAULT_CATEGORIES;
+  if (activeCategories.length === DEFAULT_CATEGORIES.length) {
+    return `${DEFAULT_CATEGORIES.length} 个题库`;
+  }
+  return activeCategories.map((category) => CATEGORY_SHORT[category] || category).join('、');
+}
+
+function getCategoryTitles(categories) {
+  const activeCategories = categories && categories.length ? categories : DEFAULT_CATEGORIES;
+  return activeCategories.map((category) => CATEGORY_MAP.get(category) || category);
+}
+
+function renderCategoryChips() {
+  const activeCategories = new Set(state.categories && state.categories.length ? state.categories : DEFAULT_CATEGORIES);
+  els.categoryChipList.innerHTML = `
+    ${CATEGORY_OPTIONS.map((item) => `
+      <button
+        class="category-chip ${activeCategories.has(item.code) ? 'active' : ''}"
+        type="button"
+        data-category-code="${item.code}"
+        title="${item.label}"
+      >${CATEGORY_SHORT[item.code] || item.label}</button>
+    `).join('')}
+  `;
+}
+
+function toggleCategory(code) {
+  const activeCategories = new Set(state.categories && state.categories.length ? state.categories : DEFAULT_CATEGORIES);
+  if (activeCategories.has(code)) {
+    if (activeCategories.size === 1) return;
+    activeCategories.delete(code);
+  } else {
+    activeCategories.add(code);
+  }
+  state.categories = getOrderedCategories([...activeCategories]);
+}
+
+function renderCurrentQuestion() {
+  if (!state.current) {
+    renderEmptyState();
+    return;
+  }
+  els.answerInput.disabled = false;
+  els.submitBtn.disabled = false;
+  els.hintBtn.disabled = false;
+  els.revealBtn.disabled = false;
+  els.nextBtn.disabled = false;
+  els.questionId.textContent = `#${String(state.current.id).padStart(2, '0')}`;
+  els.questionText.textContent = state.current.question;
+  els.hintList.innerHTML = '';
+  els.feedback.textContent = '';
+  els.feedback.className = 'feedback';
+  els.answerInput.value = '';
+  renderHints();
+  updateStats();
+  els.answerInput.focus();
+}
+
+function markSolved() {
+  if (state.currentSolved || !state.current) return;
+  state.currentSolved = true;
+  state.solvedCount += 1;
+  updateStats();
+}
+
+function drawNextQuestion() {
+  const currentKey = state.categories.slice().sort().join(',');
+  if (state.lastPoolKey !== currentKey || !state.pool.length) {
+    refillPool();
+  }
+  if (!state.pool.length) {
+    state.current = null;
+    renderEmptyState();
+    return;
+  }
+  state.current = state.pool.pop();
+  state.hintIndex = 0;
+  state.revealed = false;
+  state.currentSolved = false;
+  state.attemptCount = 0;
+  renderCurrentQuestion();
+}
+
+function setFeedback(message, kind) {
+  els.feedback.textContent = message;
+  els.feedback.className = `feedback ${kind || ''}`.trim();
+}
+
+function revealAnswer() {
+  if (!state.current) return;
+  state.revealed = true;
+  const answer = state.current.answer || '（未提供答案）';
+  setFeedback(`正确答案：${answer}`, 'good');
+}
+
+function submitAnswer() {
+  if (!state.current) return;
+  const value = els.answerInput.value.trim();
+  if (!value) {
+    setFeedback('先输入答案再提交。', 'bad');
+    return;
+  }
+  state.attemptCount += 1;
+  els.answerInput.value = '';
+  if (isCloseEnough(value, state.current.answer)) {
+    markSolved();
+    state.revealed = true;
+    const attemptsText = state.attemptCount === 1 ? '首次即答对。' : `共尝试 ${state.attemptCount} 次。`;
+    setFeedback(`答对了！正确答案：${state.current.answer}。${attemptsText}`, 'good');
+    els.answerInput.focus();
+    return;
+  }
+  const suggestion = state.current.hints[state.hintIndex] ? '可以先看一条提示再试。' : '继续试试别的说法。';
+  setFeedback(`还差一点，再想想。${suggestion}`, 'bad');
+  els.answerInput.focus();
+}
+
+function showNextHint() {
+  if (!state.current) return;
+  if (state.hintIndex >= state.current.hints.length) {
+    setFeedback('这一题已经没有更多提示了。', '');
+    return;
+  }
+  state.hintIndex += 1;
+  renderHints();
+  setFeedback(`已显示第 ${state.hintIndex} 条提示。`, '');
+}
+
+function restartCurrentQuestion() {
+  if (!state.current) return;
+  state.hintIndex = 0;
+  state.revealed = false;
+  state.currentSolved = false;
+  state.attemptCount = 0;
+  renderCurrentQuestion();
+  setFeedback('当前题目已重置。', '');
+}
+
+function applyCategorySelection() {
+  state.categories = getOrderedCategories(state.categories);
+  refillPool();
+  renderCategoryChips();
+  updateStats();
+  if (state.current && !state.categories.includes(String(state.current.category))) {
+    state.current = null;
+    state.hintIndex = 0;
+    state.revealed = false;
+    state.currentSolved = false;
+    state.attemptCount = 0;
+    if (state.pool.length) {
+      renderIdleState('当前题库已切换，点击“抽取新题”开始。');
+    } else {
+      renderEmptyState();
+    }
+  }
+  renderQuestionGrid();
+}
+
+function renderModalCategoryOptions(select, items) {
+  select.innerHTML = items.map((item) => `<option value="${item.code}">${item.label}</option>`).join('');
+  select.value = 'all';
+}
+
+function openModal() {
+  els.modal.classList.add('open');
+  els.modalCategory.value = 'all';
+  els.searchInput.value = '';
+  renderQuestionGrid();
+  els.searchInput.focus();
+}
+
+function closeModal() {
+  els.modal.classList.remove('open');
+}
+
+function questionCardMarkup(question) {
+  const hints = question.hints && question.hints.length
+    ? question.hints.map((hint, index) => `<div>${index + 1}. ${escapeHtml(hint)}</div>`).join('')
+    : '<div>暂无提示</div>';
+  return `
+    <article class="question-card">
+      <div class="id">#${String(question.id).padStart(2, '0')} · ${escapeHtml(CATEGORY_SHORT[String(question.category)] || question.category)}</div>
+      <div class="meta">
+        <span class="tag">${escapeHtml(CATEGORY_MAP.get(String(question.category)) || question.category)}</span>
+      </div>
+      <div class="body">${escapeHtml(question.question)}</div>
+      <div class="answer">答案：${escapeHtml(question.answer)}</div>
+      <div class="hints">提示：${hints}</div>
+    </article>
+  `;
+}
+
+function renderQuestionGrid() {
+  const keyword = normalize(els.searchInput.value);
+  const category = els.modalCategory.value;
+  const filtered = QUESTIONS.filter((question) => {
+    const matchesCategory = category === 'all' || String(question.category) === String(category);
+    if (!matchesCategory) return false;
+    if (!keyword) return true;
+    const haystack = normalize([question.question, question.answer, question.hints.join(' ')].join(' '));
+    return haystack.includes(keyword);
+  });
+  els.questionGrid.innerHTML = filtered.length
+    ? filtered.map(questionCardMarkup).join('')
+    : '<div class="card-mini">没有找到符合条件的题目。</div>';
+}
+
+function bindEvents() {
+  els.categoryChipList.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-category-code]');
+    if (!button) return;
+    toggleCategory(button.dataset.categoryCode);
+    applyCategorySelection();
+  });
+  els.modalCategory.addEventListener('change', renderQuestionGrid);
+  els.searchInput.addEventListener('input', renderQuestionGrid);
+  els.newQuestionBtn.addEventListener('click', drawNextQuestion);
+  els.submitBtn.addEventListener('click', submitAnswer);
+  els.hintBtn.addEventListener('click', showNextHint);
+  els.revealBtn.addEventListener('click', revealAnswer);
+  els.nextBtn.addEventListener('click', drawNextQuestion);
+  els.restartBtn.addEventListener('click', restartCurrentQuestion);
+  els.allQuestionsBtn.addEventListener('click', openModal);
+  els.closeModalBtn.addEventListener('click', closeModal);
+  els.modal.addEventListener('click', (event) => { if (event.target === els.modal) closeModal(); });
+  els.answerInput.addEventListener('keydown', (event) => { if (event.key === 'Enter') submitAnswer(); });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && els.modal.classList.contains('open')) closeModal(); });
+}
+
+function init() {
+  renderModalCategoryOptions(els.modalCategory, CATEGORY_META);
+  renderCategoryChips();
+  renderIdleState();
+  updateStats();
+  bindEvents();
+  applyCategorySelection();
+  renderQuestionGrid();
+}
+
+init();
+</script>
+</body>
+</html>
